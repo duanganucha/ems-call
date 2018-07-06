@@ -1,14 +1,79 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
+
     <ion-title>
-      Ionic Blank
+      1669 ศรีสะเกษ
     </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="onLocation()">
+        <ion-icon name="ios-navigate-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+
+
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content class="card-background-page">
+
+
+  <!-- -------------Location------------------- -->
+  <ion-card>
+    <ion-item-divider color="secondary">
+      <p>สถานที่ปัจจุบัน : {{ datas?.report_locationDetail }}</p>
+    </ion-item-divider>
+   
+    <agm-map style="height:120px;" [latitude]="location.lat" [longitude]="location.lng" [zoom]="16" center="locationRio" gestureHandling='none'>
+      <agm-marker [latitude]="location.lat" [longitude]="location.lng" [iconUrl]="'assets/imgs/marker.png'">
+        <agm-info-window>ที่อยู่ 
+          <a class="btn btn-attention pull-right">{{ datas?.report_locationDetail }}
+            <i class="fa fa-angle-double-right"></i>
+          </a>
+
+        </agm-info-window>
+      </agm-marker>
+    </agm-map>
+  </ion-card>
+
+
+  <!-- -------------Camera Photo------------------- -->
+
+  <ion-card>
+    <ion-item-divider color="secondary">
+      <p>คลิ้กที่ กล้อง / ภาพ เพื่อถ่ายภาพ</p>
+    </ion-item-divider>
+    <img [src]="base64Image" (click)="OnTakePhoto()" class="center">
+    <button ion-button *ngIf="base64Image == 'assets/imgs/camera.png'" icon-left block outline small type="button" (click)="OnTakePhoto()">
+
+      <ion-icon name="camera"></ion-icon>
+      ถ่ายภาพ
+    </button>
+  </ion-card>
+
+  <!-- -------------Text------------------- -->
+
+  <ion-card>
+
+    <ion-item-divider color="secondary">
+      <p>เบอร์โทรติดต่อกลับ</p>
+    </ion-item-divider>
+    <ion-input type="tel" [(ngModel)]="telNumber" name="telNumber" color="primary" placeholder="Tel : ______________" maxlength="10"></ion-input>
+  </ion-card>
+
+  <ion-fab right bottom>
+    <button ion-fab color="danger" (click)="onSubmit()">
+      <ion-icon name="md-call"></ion-icon>
+    </button>
+
+  </ion-fab>
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar align="center">
+    <button ion-button icon-only (click)="onSubmit()" color="danger">
+      <ion-icon name="md-call">โทรแจ้งเหตุ</ion-icon>
+    </button>
+  </ion-toolbar>
+</ion-footer>

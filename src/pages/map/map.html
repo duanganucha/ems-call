@@ -1,0 +1,35 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>แผนที่</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+
+   <!-- -------------Location------------------- -->
+   <ion-card>
+      <ion-item-divider color="secondary">
+        <p>สถานที่ปัจจุบัน</p>
+      </ion-item-divider>
+      <p>{{ locationDetail }}</p>
+
+      <agm-map  [latitude]="location.lat" [longitude]="location.lng" [zoom]="17" center="locationRio" >
+        <agm-marker [latitude]="location.lat" [longitude]="location.lng" [iconUrl]="'assets/imgs/marker.png'">
+          <agm-info-window>คุณอยู่ตรงนี้ 
+            <a class="btn btn-attention pull-right">
+              <i class="fa fa-angle-double-right"></i>
+            </a>
+  
+          </agm-info-window>
+        </agm-marker>
+      </agm-map>
+    </ion-card>
+
+  <ion-card>
+  </ion-card>
+
+
+</ion-content>
