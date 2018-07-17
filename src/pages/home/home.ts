@@ -8,6 +8,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { CallNumber } from '@ionic-native/call-number';
+import * as firebase from 'firebase';
 
 declare var google: any;
 
@@ -17,8 +18,11 @@ declare var google: any;
 })
 export class HomePage {
 
+  servertime = firebase.database.ServerValue.TIMESTAMP;
+
   items: Observable<any[]>;
   telNumber: string = "";
+  scene : string = "";
   base64Image: string = 'assets/imgs/camera.jpg';
   location: Location = {
     lat: 18.771739,
@@ -64,11 +68,16 @@ export class HomePage {
           handler: () => {
             console.log('Agree clicked');
             this.datas.report_telNumber = this.telNumber;
+            this.datas.report_scene = this.scene ; 
+            this.datas.servertime = firebase.database.ServerValue.TIMESTAMP;
             const itemsRef = this.afDB.list('requests');
             itemsRef.push(this.datas);
 
             this.callNumber.callNumber("1669", true)
-            this.navCtrl.push(MainPage);
+
+            setTimeout(() => {
+              this.navCtrl.push(MainPage);
+            },5000); 
 
           }
         }
@@ -172,6 +181,10 @@ class Datastructure {
   report_image = "";
   report_location : Location = new Location(0,0);
   report_locationDetail = "";
+  report_scene = "" ;
+  servertime : any ; 
+  status = "UnRead";
+  report_mode = "general";
 
 }
 

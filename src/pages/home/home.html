@@ -59,6 +59,10 @@
       <p>เบอร์โทรติดต่อกลับ</p>
     </ion-item-divider>
     <ion-input type="tel" [(ngModel)]="telNumber" name="telNumber" color="primary" placeholder="Tel : ______________" maxlength="10"></ion-input>
+    <ion-item-divider color="secondary">
+      <p>เหตุการณ์ / อาการ</p>
+    </ion-item-divider>
+    <ion-input type="text" [(ngModel)]="scene" name="scene" color="primary" placeholder="เหตุการณ์: ______________"></ion-input>
   </ion-card>
 
   <ion-fab right bottom>
